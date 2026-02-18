@@ -18,12 +18,19 @@ class HashMap {
 
 	set(key, value) {
 		const index = this.hash(key);
-		let bucket = this.buckets[index];
 
-		if (bucket == null){
-			bucket = new LinkedList()
+		if (index < 0 || index >= this.buckets.length) {
+  			throw new Error("Trying to access index out of bounds");
 		}
-
+		
+		if (this.buckets[index] === undefined){
+		this.buckets[index]= new LinkedList();
+		this.buckets[index].append(key, value);
+		this.size += 1;
+		} else {
+			this.buckets[index].append(key, value)
+			this.size += 1;
+		}
 	}
 
 	clear() {
@@ -34,23 +41,39 @@ class HashMap {
 	}
 }
 
-
 class LinkedList {
-	constructor(){
+	constructor() {
 		this.head = null;
-		console.log("linked")
+		console.log("linked");
+
+	}
+
+	append(key, value) {
+		const node = new Node(key, value);
+		if (this.head == null) {
+			this.head = node;
+		} else {
+			let current = this.head;
+			while (current.nextNode != null) {
+				current = current.nextNode;
+			}
+			current.nextNode = node;
+		}
 	}
 }
 
 class Node {
-	constructor(key, value){
+	constructor(key, value) {
 		this.key = key;
 		this.value = value;
 		this.nextNode = null;
-
 	}
 }
 
 const test = new HashMap();
 
-console.log(test.set("dog"));
+console.log(test.set("dog", "orange"));
+
+setTimeout(() =>{
+	console.log(test);
+}, 3000)
