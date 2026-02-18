@@ -60,6 +60,10 @@ class HashMap {
 
 	}
 
+	length(){
+		return this.size
+	}
+
 	clear() {
 		this.capacity = 16;
 		this.buckets = new Array(this.capacity).fill().map(() => []);
