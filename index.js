@@ -44,6 +44,19 @@ class HashMap {
 		} else {
 			return this.buckets[index].getNode(key)
 		}
+	}
+
+	has(key){
+		const index = this.hash(key);
+
+		if (index < 0 || index >= this.buckets.length) {
+  			throw new Error("Trying to access index out of bounds");
+		}
+		if (this.buckets[index] === undefined){
+			return false
+		}else {
+			return this.buckets[index].contains(key)
+		}
 
 	}
 
@@ -87,6 +100,20 @@ class LinkedList {
 			}
 		}
 	}
+
+	contains(key) {
+		if (this.head == null) {
+			return false;
+		} else {
+			let current = this.head;
+			while (current != null) {
+				if (current.key == key) {
+					return true;
+				} else current = current.nextNode;
+			}
+		}
+		return false;
+	}	
 }
 
 class Node {
@@ -114,7 +141,7 @@ test.set('lion', 'golden')
 
 console.log(test);
 setTimeout(() =>{
-	console.log(test.get("dog"));
+	console.log(test.has("monkey"));
 },2000)
 
 setTimeout(() =>{
