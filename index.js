@@ -72,6 +72,7 @@ class HashMap {
 
 	values() {
 		const result = [];
+		
 		for (let i = 0; i < this.buckets.length; i++) {
 			const bucket = this.buckets[i];
 			if (!bucket) continue;
@@ -80,6 +81,16 @@ class HashMap {
 		return result;
 	}
 
+	entries(){
+		const result = [];
+
+		for (let i = 0; i < this.buckets.length; i++) {
+			const bucket = this.buckets[i];
+			if (!bucket) continue;
+			result.push(...bucket.getEntries());
+		}
+		return result;		
+	}
 
 	/*
 	remove(key){
@@ -183,6 +194,20 @@ class LinkedList {
 		}
 	}
 
+	getEntries(){
+		if (this.head == null) {
+			return "";
+		} else {
+			const entries = [];
+			let current = this.head;
+			while (current != null) {
+				entries.push([current.key, current.value]);
+				current = current.nextNode;
+			}
+			return entries;
+		}	
+	}
+
 	/*
 	removeAt(key) {
 
@@ -237,4 +262,4 @@ setTimeout(() => {
 }, 3000);
 
 console.log(test.keys())
-console.log(test.values())
+console.log(test.entries())
