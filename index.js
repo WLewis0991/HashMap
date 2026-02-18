@@ -33,6 +33,20 @@ class HashMap {
 		}
 	}
 
+	get(key){
+		const index = this.hash(key);
+
+		if (index < 0 || index >= this.buckets.length) {
+  			throw new Error("Trying to access index out of bounds");
+		}
+		if (this.buckets[index] === undefined){
+			return null
+		} else {
+			return this.buckets[index].getNode(key)
+		}
+
+	}
+
 	clear() {
 		this.capacity = 16;
 		this.buckets = new Array(this.capacity).fill().map(() => []);
@@ -44,7 +58,7 @@ class HashMap {
 class LinkedList {
 	constructor() {
 		this.head = null;
-		console.log("linked");
+
 
 	}
 
@@ -60,6 +74,19 @@ class LinkedList {
 			current.nextNode = node;
 		}
 	}
+
+	getNode(key) {
+		if (this.head == null) {
+			return null;
+		} else {
+			let current = this.head;
+			while (current != null) {
+				if (current.key == key) {
+					return current.value;
+				} else current = current.nextNode;
+			}
+		}
+	}
 }
 
 class Node {
@@ -72,7 +99,23 @@ class Node {
 
 const test = new HashMap();
 
-console.log(test.set("dog", "orange"));
+test.set('apple', 'red')
+test.set('banana', 'yellow')
+test.set('carrot', 'orange')
+test.set('dog', 'brown')
+test.set('elephant', 'gray')
+test.set('frog', 'green')
+test.set('grape', 'purple')
+test.set('hat', 'black')
+test.set('ice cream', 'white')
+test.set('jacket', 'blue')
+test.set('kite', 'pink')
+test.set('lion', 'golden')
+
+console.log(test);
+setTimeout(() =>{
+	console.log(test.get("dog"));
+},2000)
 
 setTimeout(() =>{
 	console.log(test);
