@@ -66,7 +66,7 @@ class HashMap {
 
 	clear() {
 		this.capacity = 16;
-		this.buckets = new Array(this.capacity).fill().map(() => []);
+		this.buckets = new Array(this.capacity).fill();
 		this.size = 0;
 		console.log("Hash table cleared");
 	}
